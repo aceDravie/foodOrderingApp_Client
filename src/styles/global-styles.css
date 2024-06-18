@@ -1,0 +1,40 @@
+html {
+    font-size: 50.5%;
+    scroll-behavior: smooth;
+}
+
+@media (min-width: 1440px) {
+    html {
+        zoom: 1.1;
+    }
+}
+
+@media (min-width: 2560px) {
+    html {
+        zoom: 1.1;
+    }
+}
+
+@media (min-width: 3860px) {
+    html {
+        zoom: 2.5;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: #797979;
+    transition: all 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #222224;
+}
+
+::-webkit-scrollbar-track {
+    background: #f9f9f9;
+}
