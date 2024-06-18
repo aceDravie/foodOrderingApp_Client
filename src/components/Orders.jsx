@@ -58,7 +58,7 @@ const Orders = () => {
       );
 
       setOrders(sortedOrders);
-      setIsLoading(false); // Set loading state to false after fetching orders
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -217,7 +217,7 @@ const Orders = () => {
                   sx={{
                     cursor: "pointer",
                     padding: "0.5em 1em",
-                    borderRadius:"50%",
+                    borderRadius: "50%",
                     backgroundColor:
                       currentPage === index + 1 ? "#ccc" : "inherit",
                   }}
