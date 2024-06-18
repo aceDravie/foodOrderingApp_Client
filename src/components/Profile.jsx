@@ -14,7 +14,13 @@ import {
   EmailAuthProvider,
 } from "firebase/auth";
 import { AuthContext } from "../context/AuthContext";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  where,
+  query,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 
 const Profile = ({ open, onOpen, onClose }) => {
@@ -28,12 +34,100 @@ const Profile = ({ open, onOpen, onClose }) => {
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
+  const { clientID } = useParams();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
-  useEffect(() => {}, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!oldPassword || !newPassword) {
+      setSnackbarMessage("Both password fields must be filled!");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+
+    if (oldPassword !== newPassword) {
+      setSnackbarMessage("Old and new password do not match");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+
+    try {
+      const credential = EmailAuthProvider.credential(
+        currentUser.email,
+        oldPassword
+      );
+      await reauthenticateWithCredential(auth.currentUser, credential);
+      await updatePassword(auth.currentUser, newPassword);
+
+      const customersCollection = collection(db, "customers");
+      const q = query(
+        customersCollection,
+        where("email", "==", currentUser.email)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const customerDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(customerDocRef, {
+          name,
+          contact,
+          email: currentUser.email,
+          nickName,
+        });
+      } else {
+        console.error("Error updating profile:", error);
+        setSnackbarMessage("Error updating profile: " + error.message);
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      }
+
+      setSnackbarMessage("Profile updated successfully!");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
+
+      onClose();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setSnackbarMessage("Error updating profile: " + error.message);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const customersCollection = collection(db, "customers");
+        const q = query(
+          customersCollection,
+          where("email", "==", currentUser.email)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const userData = querySnapshot.docs[0].data();
+          setName(userData.name);
+          setContact(userData.contact);
+          setEmail(userData.email);
+          setNickName(userData.nickName);
+        } else {
+          console.log("No matching user document found");
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    if (currentUser) {
+      fetchUserDetails();
+    }
+  }, [currentUser]);
 
   return (
     <>
@@ -116,6 +210,16 @@ const Profile = ({ open, onOpen, onClose }) => {
           </DialogActions>
         </form>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
