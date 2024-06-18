@@ -15,7 +15,7 @@ const Dashboard = () => {
   return (
     <>
       <Slideshow />
-      <div className="container">
+      <div className="">
         <div className="links">
           <NavLink to="" className="navLink">
             <AllInclusiveIcon />

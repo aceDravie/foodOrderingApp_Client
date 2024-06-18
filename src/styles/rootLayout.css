@@ -14,7 +14,10 @@
     color: #646464;
     display: flex;
     align-items: center;
-    margin: 0 10px;
+}
+
+.active{
+    background-color: #3232341d;
 }
 
 
