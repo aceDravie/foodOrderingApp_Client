@@ -34,6 +34,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import CloseIcon from "@mui/icons-material/Close";
 import PaystackPop from "@paystack/inline-js";
+import RatingDialog from "./RatingDialog";
 
 function TempOrdersDialog({ open, onClose, tempOrders, onRemoveOrder }) {
   const [expandedOrderIndex, setExpandedOrderIndex] = useState(null);
@@ -49,17 +50,24 @@ function TempOrdersDialog({ open, onClose, tempOrders, onRemoveOrder }) {
   const { clientID } = useParams();
 
   const [deliveryGuys, setDeliveryGuys] = useState([]);
-  const [selectedGuy, setSelectedGuy] = useState(null);
-  const [selectedGuyId, setSelectedGuyId] = useState("");
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [otherInformation, setOtherInformation] = useState("");
+  const [ratingDialogOpen, setRatingDialogOpen] = useState(false);
+  const [showRateButton, setShowRateButton] = useState(false);
+  const [rateButtonTimer, setRateButtonTimer] = useState(null);
+
+  const handleRateUsClick = () => {
+    clearTimeout(rateButtonTimer);
+    setShowRateButton(false);
+    setRatingDialogOpen(true);
+  };
 
   useEffect(() => {
     if (alertOpen) {
       const timer = setTimeout(() => {
         setAlertOpen(false);
-      }, 3000);
+      }, 10000);
       return () => clearTimeout(timer);
     }
   }, [alertOpen]);
@@ -276,6 +284,11 @@ function TempOrdersDialog({ open, onClose, tempOrders, onRemoveOrder }) {
         setAlertSeverity("success");
         setAlertOpen(true);
 
+        setShowRateButton(true);
+        const timer = setTimeout(() => {
+          setShowRateButton(false);
+        }, 3000);
+        setRateButtonTimer(timer);
         onClose();
       } catch (error) {
         console.error("Error saving delivery order data:", error.message);
@@ -341,7 +354,12 @@ function TempOrdersDialog({ open, onClose, tempOrders, onRemoveOrder }) {
         setAlertMessage("Order added successfully!");
         setAlertSeverity("success");
         setAlertOpen(true);
-
+        setShowRateButton(true);
+        const timer = setTimeout(() => {
+          setShowRateButton(false);
+        }, 3000);
+        setRateButtonTimer(timer);
+        handleDialogClose();
         onClose();
       } catch (error) {
         console.error("Error saving pickup order data:", error.message);
@@ -632,6 +650,27 @@ function TempOrdersDialog({ open, onClose, tempOrders, onRemoveOrder }) {
           {alertMessage}
         </Alert>
       )}
+
+      {showRateButton && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleRateUsClick}
+          sx={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: 1500,
+          }}
+        >
+          Rate Us
+        </Button>
+      )}
+
+      <RatingDialog
+        open={ratingDialogOpen}
+        onClose={() => setRatingDialogOpen(false)}
+      />
     </>
   );
 }

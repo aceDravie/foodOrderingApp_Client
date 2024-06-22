@@ -9,6 +9,7 @@ import { AuthContext } from "./context/AuthContext";
 import Login from "./pages/Login";
 import SampFoods from "./components/SampFoods";
 import AllCategoryFoods from "./components/AllCategoryFoods";
+import AllFoods from "./components/AllFoods";
 import Orders from "./components/Orders";
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="" element={<Dashboard />}>
               <Route index element={<SampFoods />} />
               <Route path=":categoryID" element={<AllCategoryFoods />} />
+              <Route path="all" element={<AllFoods />} />
             </Route>
             <Route path="orders" element={<Orders />} />
           </Route>
