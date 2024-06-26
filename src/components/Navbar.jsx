@@ -30,7 +30,7 @@ import { AuthContext } from "../context/AuthContext";
 import Avatar from "@mui/material/Avatar";
 import Profile from "./Profile";
 
-const settings = ["Account", "Logout"];
+const settings = ["Profile", "Logout"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -166,7 +166,7 @@ function Navbar() {
   const handleMenuItemClick = (setting) => {
     if (setting === "Logout") {
       handleLogout();
-    } else if (setting === "Account") {
+    } else if (setting === "Profile") {
       handleOpenChangeProfile();
     }
     handleCloseUserMenu();

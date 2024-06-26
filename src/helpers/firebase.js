@@ -5,13 +5,13 @@ import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyCt6dJdH4xishapueoyKMXhTupZ-Fqpy5M",
+  authDomain: "foodorderingapp-c3d34.firebaseapp.com",
+  projectId: "foodorderingapp-c3d34",
+  storageBucket: "foodorderingapp-c3d34.appspot.com",
+  messagingSenderId: "613695121277",
+  appId: "1:613695121277:web:dd5dd4482816610738ce14",
+  measurementId: "G-GTLKHE5NM1"
 };
 
 const app = initializeApp(firebaseConfig);
