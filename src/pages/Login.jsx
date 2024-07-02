@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { auth } from "../helpers/firebase";
+import { auth, db } from "../helpers/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Container from "@mui/material/Container";
@@ -16,6 +16,7 @@ import {
 import { Visibility, VisibilityOff, Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,8 +45,18 @@ const Login = () => {
       );
       const user = userCredential.user;
 
-      dispatch({ type: "LOGIN", payload: user });
-      navigate(`/dashboard/${user.uid}`);
+      const adminQuery = query(
+        collection(db, "customers"),
+        where("email", "==", email)
+      );
+      const querySnapshot = await getDocs(adminQuery);
+
+      if (!querySnapshot.empty) {
+        dispatch({ type: "LOGIN", payload: user });
+        navigate(`/dashboard/${user.uid}`);
+      } else {
+        setError("You do not have admin access.");
+      }
     } catch (error) {
       console.error("Error signing in:", error);
       setError("Failed to sign in. Please check your email and password.");
