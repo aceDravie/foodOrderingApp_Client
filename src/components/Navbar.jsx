@@ -384,7 +384,6 @@ function Navbar() {
         onOpen={handleOpenChangeProfile}
         onClose={handleCloseChangeProfile}
       />
-      ;
     </div>
   );
 }
