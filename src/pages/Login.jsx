@@ -45,11 +45,11 @@ const Login = () => {
       );
       const user = userCredential.user;
 
-      const adminQuery = query(
+      const customerQuery = query(
         collection(db, "customers"),
         where("email", "==", email)
       );
-      const querySnapshot = await getDocs(adminQuery);
+      const querySnapshot = await getDocs(customerQuery);
 
       if (!querySnapshot.empty) {
         dispatch({ type: "LOGIN", payload: user });
