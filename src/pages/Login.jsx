@@ -12,6 +12,7 @@ import {
   IconButton,
   Alert,
   CircularProgress,
+  Box,
 } from "@mui/material";
 import { Visibility, VisibilityOff, Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -43,6 +44,8 @@ const Login = () => {
         email,
         password
       );
+
+      //fetching customer details from customers db
       const user = userCredential.user;
 
       const customerQuery = query(
@@ -66,91 +69,118 @@ const Login = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ height: "95vh" }}>
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: "100vh" }}
+    <Box
+      sx={{
+        height: "95vh",
+        backgroundImage:
+          'url("https://img.freepik.com/free-photo/various-vegetables-black-table-with-space-message_1220-616.jpg?t=st=1721039055~exp=1721042655~hmac=305b3271d5ec752c5180a48c785cb7aac9aa4d658f1b40ffe7f0b9ee662c0a48&w=1060")',
+        //'linear-gradient(to right, rgba(255,255,255,0), #ffffffe1),url("https://img.freepik.com/free-photo/copy-space-italian-food-ingredients_23-2148551732.jpg?t=st=1717905942~exp=1717909542~hmac=998a46f341815ae1a92cb1c373722e148210a0ba95201f3b7ee8fee488283fbf&w=1380")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          backgroundImage:
+            'url("https://img.freepik.com/free-photo/fresh-colourful-ingredients-mexican-cuisine_23-2148254294.jpg?t=st=1717899132~exp=1717902732~hmac=986108276f3bb554e3249a7d57849453a595bd96ee731dddc3a27c38f35a83c0&w=1380")',
+
+          height: "80vh",
+        }}
       >
-        <Grid item>
-          <Typography
-            variant="h5"
-            component="h5"
-            gutterBottom
-            sx={{ fontWeight: "bold", color: "#333" }}
-          >
-            LOGIN
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TextField
-            size="small"
-            label="Email"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton edge="end">
-                    <Person />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            size="small"
-            label="Password"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleTogglePasswordVisibility}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleLogin}
-            sx={{ marginBottom: "10px" }}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={24} /> : "Login"}
-          </Button>
-        </Grid>
-        <Snackbar
-          open={!!error}
-          autoHideDuration={6000}
-          onClose={() => setError("")}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        <Grid
+          container
+          spacing={2}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: "100vh" }}
         >
-          <Alert severity="error">{error}</Alert>
-        </Snackbar>
-      </Grid>
-    </Container>
+          <Grid item>
+            <Typography
+              variant="h5"
+              component="h5"
+              gutterBottom
+              sx={{ fontWeight: "bold", color: "#333" }}
+            >
+              LOGIN
+            </Typography>
+          </Grid>
+          <Grid item>
+            <TextField
+              size="small"
+              label="Email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton edge="end">
+                      <Person />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              size="small"
+              label="Password"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleTogglePasswordVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLogin}
+              sx={{ marginBottom: "10px" }}
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : "Login"}
+            </Button>
+          </Grid>
+          <Snackbar
+            open={!!error}
+            autoHideDuration={6000}
+            onClose={() => setError("")}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert severity="error">{error}</Alert>
+          </Snackbar>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

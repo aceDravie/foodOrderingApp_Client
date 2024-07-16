@@ -75,7 +75,7 @@ const FoodCard = ({ id, imageSrc, title, rating, price, description, }) => {
               borderRadius: 1,
             }}
           >
-            GHC {price}
+            GH₵ {price}
           </Typography>
         </Box>
       </div>

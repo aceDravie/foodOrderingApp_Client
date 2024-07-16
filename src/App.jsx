@@ -11,6 +11,7 @@ import SampFoods from "./components/SampFoods";
 import AllCategoryFoods from "./components/AllCategoryFoods";
 import AllFoods from "./components/AllFoods";
 import Orders from "./components/Orders";
+import Customers from "../../foodOrderingApp_Admin/src/components/Customers";
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="all" element={<AllFoods />} />
             </Route>
             <Route path="orders" element={<Orders />} />
+            
           </Route>
         </Routes>
       </BrowserRouter>

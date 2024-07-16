@@ -136,7 +136,7 @@ const FoodDialog = ({
               <Typography
                 sx={{ fontWeight: "bold", color: "#333", fontSize: "small" }}
               >
-                GHC {price}
+                GH₵ {price}
               </Typography>
               <Rating
                 value={rating}
@@ -185,7 +185,7 @@ const FoodDialog = ({
                             top: -13,
                           }}
                         >
-                          ghc {topping.price}
+                          GH₵ {topping.price}
                         </sup>
                       </Typography>
                     </Grid>
@@ -231,7 +231,7 @@ const FoodDialog = ({
                 variant="contained"
                 onClick={handleAddToCart}
               >
-                Add GHC {totalPrice.toFixed(2)} To Cart
+                Add GH₵ {totalPrice.toFixed(2)} To Cart
               </Button>
             </Grid>
           </Grid>

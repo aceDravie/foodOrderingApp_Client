@@ -122,7 +122,7 @@ const Orders = () => {
                         {formatDate(order.orderTime)}
                       </Typography>
                       <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                        GHC {order.totalPrice}
+                        GH₵ {order.totalPrice}
                       </Typography>
                       <Typography variant="body1" sx={{ fontStyle: "italic" }}>
                         {order.orderType}
@@ -167,7 +167,7 @@ const Orders = () => {
                           Food Name: {orderItem.foodName}
                         </Typography>
                         <Typography variant="body2">
-                          Total Price: GHC {orderItem.totalPrice.toFixed(2)}
+                          Total Price: GH₵ {orderItem.totalPrice.toFixed(2)}
                         </Typography>
                         <Typography variant="body2">
                           Quantity: {orderItem.quantity}

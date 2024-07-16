@@ -37,7 +37,7 @@
   }
 
   .container {
-    max-width: 124rem;
+    max-width: 120rem;
     padding: 4rem 1rem;
     margin: 0 auto;
   }
@@ -49,7 +49,7 @@
   }
 
   .swiper_container {
-    height: 40rem;
+    height: 34rem;
     padding: 2rem 0;
     position: relative;
   }
@@ -60,25 +60,25 @@
     position: relative;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 400px) {
     .swiper_container {
-      height: 34rem;
+      height: 20rem;
     }
 
     .swiper-slide {
-      width: 15rem !important;
-      height: 22rem !important;
+      width: 12rem !important;
+      height: 18rem !important;
     }
 
     .swiper-slide img {
-      width: 15rem !important;
-      height: 22rem !important;
+      width: 12rem !important;
+      height: 18rem !important;
     }
   }
 
   .swiper-slide img {
-    width: 24rem;
-    height: 32rem;
+    width: 20rem;
+    height: 25rem;
     border-radius: 2rem;
     box-shadow: 0 0 10px white;
     object-fit: cover;
